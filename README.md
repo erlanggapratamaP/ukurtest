@@ -3,8 +3,11 @@
 Fitur dalam app : 
 1. List data user
 2. Detail dari user
-3. Search User
-4. Filter User
+3. Search User, masukan kata bisa dengan nama ataupun company
+4. Filter User :
+    - Date range
+    - Gender
+    - Is active
 
 Dan Project ini menggunakan : 
 1. BloC sebagai state management
