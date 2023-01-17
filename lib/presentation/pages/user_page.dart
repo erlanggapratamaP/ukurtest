@@ -29,24 +29,29 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: BlocConsumer<UserBloc, UserState>(listener: (context, state) {
-      if (state is UserError) {
-        SnackBar(
-          content: Text(state.message),
-        );
-      }
-    }, builder: (context, state) {
-      if (state is UserInitial) {
-        return buildInitialView();
-      } else if (state is UserLoading) {
-        return buildLoading();
-      } else if (state is UserLoaded) {
-        return buildMainView(state.user);
-      } else {
-        return buildInitialView();
-      }
-    }));
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+          body: BlocConsumer<UserBloc, UserState>(listener: (context, state) {
+        if (state is UserError) {
+          SnackBar(
+            content: Text(state.message),
+          );
+        }
+      }, builder: (context, state) {
+        if (state is UserInitial) {
+          return buildInitialView();
+        } else if (state is UserLoading) {
+          return buildLoading();
+        } else if (state is UserLoaded) {
+          return buildMainView(state.user);
+        } else {
+          return buildInitialView();
+        }
+      })),
+    );
   }
 
   Widget buildLoading() {
@@ -302,7 +307,7 @@ class _UserPageState extends State<UserPage> {
           hint: 'Tempat cari user idaman',
           searchOnTap: (val) async {
             userBloc!.add(SearchUser(val));
-            FocusScope.of(context).unfocus();
+          
           },
         ),
       ),
