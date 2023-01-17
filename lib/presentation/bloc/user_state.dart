@@ -2,31 +2,27 @@
 part of 'user_bloc.dart';
 
 @immutable
-abstract class UserState {
+abstract class UserState extends Equatable {
   const UserState();
 }
 
 class UserInitial extends UserState {
-  const UserInitial();
+  @override
+  List<Object?> get props => [];
 }
 
 class UserLoading extends UserState {
-  const UserLoading();
+  @override
+  List<Object?> get props => [];
 }
 
 class UserLoaded extends UserState {
-  final List<User>? user;
-  const UserLoaded(this.user);
-
+  final List<User> user;
+  const UserLoaded({
+    required this.user,
+  });
   @override
-  bool operator ==(covariant UserLoaded other) {
-    if (identical(this, other)) return true;
-
-    return other.user == user;
-  }
-
-  @override
-  int get hashCode => user.hashCode;
+  List<Object?> get props => [user];
 }
 
 class UserError extends UserState {
@@ -34,13 +30,7 @@ class UserError extends UserState {
   const UserError(this.message);
 
   @override
-  bool operator ==(covariant UserError other) {
-    if (identical(this, other)) return true;
-  
-    return 
-      other.message == message;
-  }
-
-  @override
-  int get hashCode => message.hashCode;
+  List<Object?> get props => [message];
 }
+
+

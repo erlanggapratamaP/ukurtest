@@ -1,5 +1,9 @@
+import 'package:dio/dio.dart';
+import 'package:fake_json/data/data.dart';
+import 'package:fake_json/presentation/bloc/user_bloc.dart';
 import 'package:fake_json/presentation/pages/user_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   //check connection
   bool isLoading = false;
-
+  var dio = Dio();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,14 +29,10 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: isLoading
-          ? const Scaffold(
-              body: Center(
-                  child: CircularProgressIndicator(
-                color: Colors.blue,
-              )),
-            )
-          : const UserPage(),
+      home: BlocProvider(
+        create: (context) => UserBloc(UserRepository(dio: dio)),
+        child: const UserPage(),
+      ),
     );
   }
 }
