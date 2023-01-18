@@ -64,9 +64,8 @@ class _FilterDialogWidgetState extends State<FilterDialogWidget> {
         builder: (context) {
           var height = MediaQuery.of(context).size.height;
           var width = MediaQuery.of(context).size.width;
-          return SizedBox(
-            height: height - 500,
-            width: width - 60,
+          return Container(
+            padding: EdgeInsets.all(16),
             child: SingleChildScrollView(
               child: Column(
                 children: [
